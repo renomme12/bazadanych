@@ -1,0 +1,265 @@
+
+
+Create Table Klienci
+( Id_Klienta Varchar2(4) Not Null Constraint Id_Klienta Primary Key,
+Imie Varchar2(10) Not Null,
+Nazwisko Varchar2(25) Not Null,
+Miejscowosc Varchar2(25),
+Kod_Pocztowy Varchar2(6),
+Ulica Varchar2(20),
+Nr_Domu Varchar2(5),
+Nr_Mieszkania Varchar2(2),
+Pesel Varchar2(11));
+
+CREATE TABLE Pracownicy_hotelu(
+Id_pracownika Varchar2(4) constraint Id_pracownika primary key,
+Imie Varchar2(10) not null,
+Nazwisko Varchar2(10) not null,
+Stanowisko Varchar2(15) not null );
+
+CREATE TABLE Platnosci(
+Id_platnosci Varchar2(4) constraint Id_platnosci primary key,
+Forma_platnosci Varchar2(10) not null,
+Przedplata Varchar2(3) not null );
+
+Create Table Pokoje
+( Nr_Pokoju Varchar2(4) Constraint Nr_Pokoju Primary Key,
+Id_Rezerwacji Varchar2(4),
+Rodzaj_Pokoju Varchar2(20) Not Null,
+Cena Varchar2(4));
+
+Create Table Rezerwacje
+( Id_Rezerwacji Varchar2(4) Constraint Id_Rezerwacji Primary Key,
+Id_Platnosci Varchar2(4) Not Null,
+Id_Klienta Varchar2(4) Not Null,
+ Id_Pracownika Varchar2(4) Not Null,
+Data_Przyjazdu Date Not Null,
+Data_Wyjazdu Date Not Null,
+ Foreign Key (Id_Platnosci) References Platnosci (Id_Platnosci),
+Foreign Key (Id_Klienta) References Klienci (Id_Klienta),
+Foreign Key (Id_Pracownika) References Pracownicy_Hotelu(Id_Pracownika) );
+
+Create Table Rezerwacja_Pokoju
+( Id_Rezerwacji Varchar2(4) Not Null,
+Nr_Pokoju Varchar2(4) Not Null,
+ Foreign Key (Id_Rezerwacji) References Rezerwacje (Id_Rezerwacji),
+Foreign Key (Nr_Pokoju) References Pokoje (Nr_Pokoju));
+
+
+Insert Into Klienci Values ('k001', 'Anna','Kowalska','Wroclaw','53-222','Gradowa','11','15','91052202808');
+Insert Into Klienci Values ('k002', 'Jan','Bukowski','Krakow','30-033','Deszczowa','1','8','95010902899');
+Insert Into Klienci Values ('k003', 'Monika','Kos','Wroclaw','50-333','Zimna','34','20','88102902835');
+Insert Into Klienci Values ('k004', 'Adam','Lambert','Warszawa','00-111','Pomorska','8','1','92060202600');
+Insert Into Klienci Values ('k005', 'Marian','Prus','Wroclaw','50-888','Bukowa','19','12','91052202818');
+Insert Into Klienci Values ('k006', 'Maciej','Mak','Wroclaw','32-032','Makowa','8','8','95010922899');
+Insert Into Klienci Values ('k007', 'Katarzyna','Kot','Wroclaw','51-323','Mokra','17','24','88302902835');
+Insert Into Klienci Values ('k008', 'Kamila','Marak','Warszawa','00-001','Zapolska','2','3','92060202600');
+Insert Into Klienci Values ('k009', 'Borys','Miniec','Wroclaw','52-222','Dluga','6','10','91042202808');
+Insert Into Klienci Values ('k010', 'Jan','Krzeszowski','Krakow','30-789','Bzowa','1','5','95010502899');
+
+Insert Into Pokoje Values ('1', 'r001','jednoosobowy','40');
+Insert Into Pokoje Values ('2', 'r002','jednoosobowy','40');
+Insert Into Pokoje Values ('3', 'r003','dwuosobowy','60');
+Insert Into Pokoje Values ('4', 'r004','dwuosobowy','60');
+Insert Into Pokoje Values ('5', 'r005','dwuosobowy','60');
+Insert Into Pokoje Values ('6', 'r006','dwuosobowy','60');
+Insert Into Pokoje Values ('7', 'r007','dwuosobowy','60');
+Insert Into Pokoje Values ('8', 'r008','trzyosobowy','100');
+Insert Into Pokoje Values ('9', 'r009','trzyosobowy','100');
+Insert Into Pokoje Values ('10', 'r010','czteroosobowy','120');
+Insert Into Pokoje Values ('11', '','jednoosobowy','40');
+Insert Into Pokoje Values ('12', '','jednoosobowy','40');
+Insert Into Pokoje Values ('13', '','dwuosobowy','60');
+Insert Into Pokoje Values ('14', '','dwuosobowy','60');
+Insert Into Pokoje Values ('15', '','dwuosobowy','60');
+Insert Into Pokoje Values ('16', '','trzyosobowy','100');
+Insert Into Pokoje Values ('17', '','trzyosobowy','100');
+Insert Into Pokoje Values ('18', '','trzyosobowy','100');
+Insert Into Pokoje Values ('19', '','czteroosobowy','120');
+Insert Into Pokoje Values ('20', '','czteroosobowy','120');
+
+insert into pracownicy_hotelu values ('pk01', ' Karolina','Maziarz','Manager');
+insert into pracownicy_hotelu values ('pk02', ' Dawid','Stanczyk','Dyrektor');
+insert into pracownicy_hotelu values ('pk03', ' Amelia','Nowak','Recepcjonista');
+insert into pracownicy_hotelu values ('pk04', ' Anna','Wolak','Pokojowka');
+insert into pracownicy_hotelu values ('pk05', ' Jan','Kowal','Kucharz');
+insert into pracownicy_hotelu values ('pk06', ' Janina','Maj','Pokojowka');
+insert into pracownicy_hotelu values ('pk07', ' Oliwia','Skalska','Pokojowka');
+insert into pracownicy_hotelu values ('pk08', ' Rudolf','Dwojak','Konserwator');
+insert into pracownicy_hotelu values ('pk09', ' Ferdynand','Krol','Kucharz');
+insert into pracownicy_hotelu values ('pk10', ' Malwina','Mirek','Recepcjonista');
+
+insert into platnosci values ('p001', 'przelew','tak');
+insert into platnosci values ('p002', 'gotowka','nie');
+insert into platnosci values ('p003', 'karta','nie');
+insert into platnosci values ('p004', 'karta','tak');
+insert into platnosci values ('p005', 'przelew','tak');
+insert into platnosci values ('p006', 'gotowka','nie');
+insert into platnosci values ('p007', 'gotowka','nie');
+insert into platnosci values ('p008', 'przelew','tak');
+insert into platnosci values ('p009', 'karta','tak');
+insert into platnosci values ('p010', 'karta','nie');
+insert into platnosci values ('p011', 'gotowka','nie');
+insert into platnosci values ('p012', 'gotowka','nie');
+insert into platnosci values ('p013', 'karta','tak');
+insert into platnosci values ('p014', 'przelew','tak');
+insert into platnosci values ('p015', 'przelew','tak');
+insert into platnosci values ('p016', 'gotowka','nie');
+insert into platnosci values ('p017', 'karta','nie');
+insert into platnosci values ('p018', 'karta','tak');
+insert into platnosci values ('p019', 'gotowka','nie');
+insert into platnosci values ('p020', 'przelew','tak');
+
+insert into rezerwacje values ('r001', 'p001','k001','pk10','2018-01-12','2018-01-19');
+insert into rezerwacje values ('r002', 'p002','k002','pk03','2018-01-13','2018-01-16');
+insert into rezerwacje values ('r003', 'p003','k003','pk03','2018-01-13','2018-01-20');
+insert into rezerwacje values ('r004', 'p004','k004','pk03','2018-01-15','2018-01-20');
+insert into rezerwacje values ('r005', 'p005','k005','pk10','2018-01-15','2018-01-22');
+insert into rezerwacje values ('r006', 'p006','k006','pk03','2018-01-16','2018-01-21');
+insert into rezerwacje values ('r007', 'p007','k007','pk10','2018-01-17','2018-01-21');
+insert into rezerwacje values ('r008', 'p008','k008','pk10','2018-01-17','2018-01-24');
+insert into rezerwacje values ('r009', 'p009','k009','pk03','2018-01-20','2018-01-23');
+insert into rezerwacje values ('r010', 'p010','k010','pk03','2018-01-23','2018-01-30');
+insert into rezerwacje values ('r011', 'p011','k003','pk10','2018-02-01','2018-02-04');
+insert into rezerwacje values ('r012', 'p012','k005','pk10','2018-02-02','2018-02-09');
+insert into rezerwacje values ('r013', 'p013','k006','pk10','2018-02-05','2018-02-10');
+insert into rezerwacje values ('r014', 'p014','k010','pk03','2018-02-07','2018-02-12');
+insert into rezerwacje values ('r015', 'p015','k001','pk03','2018-02-10','2018-02-17');
+insert into rezerwacje values ('r016', 'p016','k002','pk03','2018-02-11','2018-02-15');
+insert into rezerwacje values ('r017', 'p017','k007','pk10','2018-02-13','2018-02-16');
+insert into rezerwacje values ('r018', 'p018','k002','pk03','2018-02-18','2018-02-24');
+insert into rezerwacje values ('r019', 'p019','k004','pk10','2018-02-18','2018-02-25');
+insert into rezerwacje values ('r020', 'p020','k009','pk03','2018-02-21','2018-02-28');
+
+Insert Into Rezerwacja_Pokoju Values ('r001', '1');
+Insert Into Rezerwacja_Pokoju Values ('r002', '2');
+Insert Into Rezerwacja_Pokoju Values ('r003', '3');
+Insert Into Rezerwacja_Pokoju Values ('r004', '4');
+Insert Into Rezerwacja_Pokoju Values ('r005', '5');
+Insert Into Rezerwacja_Pokoju Values ('r006', '6');
+Insert Into Rezerwacja_Pokoju Values ('r007', '7');
+Insert Into Rezerwacja_Pokoju Values ('r008', '8');
+Insert Into Rezerwacja_Pokoju Values ('r009', '9');
+Insert Into Rezerwacja_Pokoju Values ('r010', '10');
+Insert Into Rezerwacja_Pokoju Values ('r011', '2');
+Insert Into Rezerwacja_Pokoju Values ('r012', '3');
+Insert Into Rezerwacja_Pokoju Values ('r013', '4');
+Insert Into Rezerwacja_Pokoju Values ('r014', '5');
+Insert Into Rezerwacja_Pokoju Values ('r015', '8');
+Insert Into Rezerwacja_Pokoju Values ('r016', '3');
+Insert Into Rezerwacja_Pokoju Values ('r017', '3');
+Insert Into Rezerwacja_Pokoju Values ('r018', '9');
+Insert Into Rezerwacja_Pokoju Values ('r019', '10');
+Insert Into Rezerwacja_Pokoju Values ('r020', '1');
+
+CREATE VIEW pracownicy (Imie, Nazwisko, Stanowisko)
+AS SELECT imie, nazwisko, stanowisko FROM pracownicy_hotelu;
+
+CREATE VIEW klienci_hotelu (Imie, Nazwisko, Miejscowosc)
+AS SELECT imie, nazwisko, miejscowosc FROM klienci;
+
+CREATE VIEW Pokoje_dwuosobowe(Nr_Pokoju, Rodzaj_pokoju, Cena)
+AS SELECT nr_pokoju, rodzaj_pokoju,cena FROM Pokoje
+WHERE rodzaj_pokoju = 'dwuosobowy';
+
+CREATE VIEW Rodzaje_pokoji (Rodzaj_pokoju, ilosc)
+AS SELECT rodzaj_pokoju,
+COUNT(nr_pokoju) FROM pokoje GROUP BY Rodzaj_pokoju
+ORDER BY Rodzaj_pokoju;
+
+CREATE VIEW Wolne_pokoje (nr_pokoju,rodzaj_pokoju, cena )
+AS SELECT nr_pokoju, rodzaj_pokoju, cena
+FROM pokoje WHERE id_rezerwacji is null;
+
+CREATE view Data_przyjazdu as
+(SELECT rezerwacja_pokoju.nr_pokoju AS numer_pokoju,
+klienci.imie AS imie,
+klienci.nazwisko AS nazwisko,
+rezerwacje.data_przyjazdu as przyjazd,
+rezerwacje.data_wyjazdu as wyjazd
+FROM rezerwacja_pokoju, klienci, rezerwacje
+WHERE
+data_przyjazdu >= to_date('2018/02/01', 'yyyy/mm/dd')
+AND data_wyjazdu <= to_date('2018/02/28','yyyy/mm/dd')
+AND rezerwacje.id_rezerwacji=rezerwacja_pokoju.id_rezerwacji
+AND rezerwacje.id_klienta=klienci.id_klienta);
+
+CREATE VIEW widok_rezerwacji AS
+(SELECT rezerwacja_pokoju.nr_pokoju AS numer_pokoju,
+klienci.imie AS imie,
+klienci.nazwisko AS nazwisko,
+klienci.id_klienta AS id_klienta,
+rezerwacje.id_rezerwacji AS id_rezerwacji
+FROM rezerwacja_pokoju, klienci, rezerwacje
+WHERE rezerwacje.id_rezerwacji=rezerwacja_pokoju.id_rezerwacji
+AND rezerwacje.id_klienta=klienci.id_klienta);
+
+
+
+Select rodzaj_pokoju, cena from pokoje;
+
+Select imie, nazwisko, data_przyjazdu, data_wyjazdu from klienci natural join rezerwacje;
+
+Select imie, nazwisko from klienci where miejscowosc='Krakow';
+
+Select forma_platnosci, przedplata, data_przyjazdu from platnosci natural join rezerwacje where przedplata='tak';
+
+Select imie, nazwisko, stanowisko from pracownicy_hotelu where stanowisko='Pokojowka' order by id_pracownika ;
+
+Select rodzaj_pokoju, cena, data_przyjazdu, data_wyjazdu  from pokoje natural join rezerwacje where cena>60 order by cena,id_platnosci ;
+
+
+SELECT nr_pokoju, rodzaj_pokoju, cena FROM pokoje WHERE pokoje.cena = &cena;
+
+DELETE FROM pracownicy_hotelu WHERE stanowisko = &stanowisko_do_usuniecia;
+
+
+SELECT nr_pokoju, COUNT(id_rezerwacji) AS liczba_rezerwacji FROM rezerwacja_pokoju GROUP BY nr_pokoju;
+
+SELECT pracownicy_hotelu.id_pracownika, COUNT(rezerwacje.id_rezerwacji) AS liczba_wpisanych_rezerwacji FROM pracownicy_hotelu, rezerwacje
+where pracownicy_hotelu.id_pracownika=rezerwacje.id_pracownika GROUP BY pracownicy_hotelu.id_pracownika;
+
+SELECT data_przyjazdu FROM rezerwacje GROUP BY data_przyjazdu HAVING COUNT(id_rezerwacji)>1;
+
+SELECT COUNT(id_rezerwacji) AS "Liczba rezerwacji", id_pracownika FROM rezerwacje GROUP BY id_pracownika HAVING COUNT(id_rezerwacji)>1;
+
+
+SELECT * FROM rezerwacje WHERE data_przyjazdu LIKE '__/01/__';
+
+
+SELECT DISTINCT(stanowisko) FROM pracownicy_hotelu WHERE stanowisko LIKE 'K%' ORDER BY stanowisko;
+
+
+SELECT * FROM pokoje WHERE cena>(SELECT avg(cena) FROM pokoje);
+
+
+SELECT * FROM pokoje WHERE cena>(SELECT MIN(cena) FROM pokoje);
+
+SELECT id_klienta, id_pracownika, COUNT(id_rezerwacji) FROM rezerwacje
+GROUP BY ROLLUP (id_klienta, id_pracownika) ORDER BY id_klienta, id_pracownika;
+
+
+
+SELECT pokoje.rodzaj_pokoju, rezerwacje.id_klienta, COUNT(rezerwacje.id_rezerwacji) FROM pokoje, rezerwacje where pokoje.id_rezerwacji=rezerwacje.id_rezerwacji GROUP BY CUBE (pokoje.rodzaj_pokoju, rezerwacje.id_klienta);
+
+CREATE GLOBAL TEMPORARY TABLE klienci_tymczasowa
+(id_klienta VARCHAR2(4) NOT NULL,
+imie VARCHAR2(10) NOT NULL,
+nazwisko VARCHAR2(25),
+miejscowosc VARCHAR2(25),
+kod_pocztowy VARCHAR2(6),
+ulica VARCHAR2(20),
+nr_domu VARCHAR2(5),
+nr_mieszkania VARCHAR2(2),
+pesel VARCHAR2(11))
+ON COMMIT DELETE ROWS;
+INSERT INTO klienci_tymczasowa SELECT
+id_klienta, imie, nazwisko, miejscowosc, kod_pocztowy,
+ulica, nr_domu, nr_mieszkania, pesel  FROM klienci;
+
+ALTER TABLE pokoje ADD opis VARCHAR(50);
+
+DELETE FROM pokoje WHERE nr_pokoju = '15';
+
+
+ALTER TABLE platnosci RENAME COLUMN forma_platnosci TO platnosc;
